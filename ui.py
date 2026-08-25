@@ -1,6 +1,10 @@
 import joblib
 import pandas as pd
 import streamlit as st
+from pathlib import Path
+
+
+BASE_DIR = Path(__file__).resolve().parent
 
 
 st.set_page_config(
@@ -12,12 +16,12 @@ st.set_page_config(
 
 @st.cache_data
 def carregar_dados():
-    return pd.read_parquet("model/heart_disease_risk_dataset.parquet")
+    return pd.read_parquet(BASE_DIR / "heart_disease_risk_dataset.parquet")
 
 
 @st.cache_resource
 def carregar_modelo():
-    return joblib.load("model/pipeline.pkl")
+    return joblib.load(BASE_DIR / "pipeline.pkl")
 
 
 df = carregar_dados()
@@ -42,7 +46,7 @@ opcoes_fumante = {
     "Fumante atual": "Current",
 }
 
-
+# t
 st.markdown(
     """
     <style>
@@ -403,14 +407,14 @@ with aba_metricas:
     grafico_col_1, grafico_col_2 = st.columns(2)
     with grafico_col_1:
         st.subheader("Correlacao das features")
-        st.image("model/plots/correlacao.png", use_container_width=True)
+        st.image(str(BASE_DIR / "plots/correlacao.png"), use_container_width=True)
 
         st.subheader("Precision-Recall")
-        st.image("model/plots/ap.png", use_container_width=True)
+        st.image(str(BASE_DIR / "plots/ap.png"), use_container_width=True)
 
     with grafico_col_2:
         st.subheader("Curva ROC")
-        st.image("model/plots/roc_auc.png", use_container_width=True)
+        st.image(str(BASE_DIR / "plots/roc_auc.png"), use_container_width=True)
 
         st.subheader("Importancia das features")
-        st.image("model/plots/importancia_features_target.png", use_container_width=True)
+        st.image(str(BASE_DIR / "plots/importancia_features_target.png"), use_container_width=True)
