@@ -46,7 +46,6 @@ opcoes_fumante = {
     "Fumante atual": "Current",
 }
 
-# t
 st.markdown(
     """
     <style>
